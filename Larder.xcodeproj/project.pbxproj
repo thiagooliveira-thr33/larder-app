@@ -60,7 +60,7 @@
 				000000000000000000000010 /* Larder */,
 			);
 			name = Larder;
-			productName = MyApp;
+			productName = Larder;
 			productReference = 000000000000000000000120 /* Larder.app */;
 			productType = "com.apple.product-type.application";
 		};
