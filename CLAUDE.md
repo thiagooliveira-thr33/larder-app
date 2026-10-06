@@ -40,7 +40,7 @@ Native iOS app and design system, built as a learning case study: a grocery app 
 
 ## Workflow: spec-driven
 
-- Specs and decisions live in Notion, in the page "Waitrose iOS Revamp — Case Study" (Roadmap, SPEC pages, Design System Spec, Decision Log). Read the relevant spec and its acceptance criteria before implementing. If you cannot reach Notion, ask me to paste the spec. Do not invent requirements.
+- Specs and decisions live in Notion, in the page "LARDER - Case Study" (Roadmap, SPEC pages, Design System Spec, Decision Log). Read the relevant spec and its acceptance criteria before implementing. If you cannot reach Notion, ask me to paste the spec. Do not invent requirements.
 - Do not contradict an accepted decision without asking. Accepted so far: D-001 (native `TabView` by default), D-007 (slice: Home, Product list, Add to trolley, Trolley), D-010 (codename and placeholder brand).
 - Design source: Figma file key `YUrmH4fNFQP5QAR2FM3nLw`. If Figma tools are available, read variables and components from there. Otherwise ask me for values or screenshots.
 - Branch per spec, for example `spec-001-home`. Commit messages start with the spec ID, for example `SPEC-001: add quick action row`. One logical change per commit.
