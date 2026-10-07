@@ -6,8 +6,19 @@
 	objectVersion = 90;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		03D2EA3830766E6C00BF54D9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 000000000000000100000000;
+			remoteInfo = Larder;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		000000000000000000000120 /* Larder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Larder.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		03D2EA3430766E6C00BF54D9 /* LarderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LarderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +27,20 @@
 			path = Larder;
 			sourceTree = "<group>";
 		};
+		03D2EA3530766E6C00BF54D9 /* LarderTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LarderTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		000000000000000130000000 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		03D2EA3130766E6C00BF54D9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
 			);
@@ -31,6 +52,7 @@
 			isa = PBXGroup;
 			children = (
 				000000000000000000000010 /* Larder */,
+				03D2EA3530766E6C00BF54D9 /* LarderTests */,
 				000000000000000000000020 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -39,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				000000000000000000000120 /* Larder.app */,
+				03D2EA3430766E6C00BF54D9 /* LarderTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -64,6 +87,27 @@
 			productReference = 000000000000000000000120 /* Larder.app */;
 			productType = "com.apple.product-type.application";
 		};
+		03D2EA3330766E6C00BF54D9 /* LarderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03D2EA3A30766E6C00BF54D9 /* Build configuration list for PBXNativeTarget "LarderTests" */;
+			buildPhases = (
+				03D2EA3030766E6C00BF54D9 /* Sources */,
+				03D2EA3130766E6C00BF54D9 /* Frameworks */,
+				03D2EA3230766E6C00BF54D9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				03D2EA3930766E6C00BF54D9 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				03D2EA3530766E6C00BF54D9 /* LarderTests */,
+			);
+			name = LarderTests;
+			productName = LarderTests;
+			productReference = 03D2EA3430766E6C00BF54D9 /* LarderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -71,11 +115,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2630;
+				LastSwiftUpdateCheck = 2700;
 				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					000000000000000100000000 = {
 						CreatedOnToolsVersion = 26.3;
+					};
+					03D2EA3330766E6C00BF54D9 = {
+						CreatedOnToolsVersion = 27.0;
+						TestTargetID = 000000000000000100000000;
 					};
 				};
 			};
@@ -94,12 +142,18 @@
 			projectRoot = "";
 			targets = (
 				000000000000000100000000 /* Larder */,
+				03D2EA3330766E6C00BF54D9 /* LarderTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		000000000000000140000000 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+		03D2EA3230766E6C00BF54D9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
 			);
@@ -112,7 +166,20 @@
 			files = (
 			);
 		};
+		03D2EA3030766E6C00BF54D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		03D2EA3930766E6C00BF54D9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 000000000000000100000000 /* Larder */;
+			targetProxy = 03D2EA3830766E6C00BF54D9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		000000000000000011000000 /* Debug configuration for PBXProject "Larder" */ = {
@@ -301,6 +368,53 @@
 			};
 			name = Release;
 		};
+		03D2EA3B30766E6C00BF54D9 /* Debug configuration for PBXNativeTarget "LarderTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 75D2Z6X566;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = thr33.LarderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Larder.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Larder";
+			};
+			name = Debug;
+		};
+		03D2EA3C30766E6C00BF54D9 /* Release configuration for PBXNativeTarget "LarderTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 75D2Z6X566;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = thr33.LarderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Larder.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Larder";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -317,6 +431,14 @@
 			buildConfigurations = (
 				000000000000000111000000 /* Debug configuration for PBXNativeTarget "Larder" */,
 				000000000000000112000000 /* Release configuration for PBXNativeTarget "Larder" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		03D2EA3A30766E6C00BF54D9 /* Build configuration list for PBXNativeTarget "LarderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03D2EA3B30766E6C00BF54D9 /* Debug configuration for PBXNativeTarget "LarderTests" */,
+				03D2EA3C30766E6C00BF54D9 /* Release configuration for PBXNativeTarget "LarderTests" */,
 			);
 			defaultConfigurationName = Release;
 		};
