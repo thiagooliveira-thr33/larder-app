@@ -15,6 +15,7 @@ Native iOS app and design system, built as a learning case study: a grocery app 
 ## Platform and stack
 
 - Deployment target: iOS 26.0. iPhone first.
+- iPhone only and portrait only for now, revisit at M4.
 - SwiftUI only. UIKit only where SwiftUI has no equivalent, with a comment saying why.
 - State: `@Observable`, `@State`, `@Bindable`. Navigation: `NavigationStack` and the native `TabView`.
 - Avoid older patterns: `NavigationView`, `foregroundColor` (use `foregroundStyle`), `ObservableObject` and `@StateObject` for new code, single-parameter `onChange`. If you are not sure a pattern is current, check the docs.
@@ -48,20 +49,20 @@ Native iOS app and design system, built as a learning case study: a grocery app 
 
 ## Out of scope
 
-Backend, authentication, payments and checkout, real barcode scanning, push notifications, third-party SDKs.
+Backend, authentication, payments and checkout, real barcode scanning, push notifications, third-party SDKs, macOS, visionOS, iPad layouts.
 
 ## Brand and licensing
 
 Never add the original retailer's name, logo, photography or proprietary fonts to this repo. The app uses the placeholder name and original or properly licensed imagery. Fonts must be open-licence.
 
-## Repo layout (proposed, adjust when the Xcode project exists)
+## Repo layout
 
 ```
-Larder/
+Larder/                     repo root
   CLAUDE.md
   Larder.xcodeproj
-  App/                      app target: entry point, tabs, screens
-  Packages/DesignSystem/    Swift package: Tokens/, Components/
-  Gallery/                  gallery target
-  Resources/Catalog/        mock catalog JSON
+  Larder/                   app target sources: entry point, tabs, screens
+  Packages/DesignSystem/    Swift package: Tokens/, Components/ (created in M1)
+  Gallery/                  gallery target (created in M1)
+  Resources/Catalog/        mock catalog JSON (created in M3)
 ```
