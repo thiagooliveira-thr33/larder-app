@@ -19,19 +19,23 @@ struct AccountSheet: View {
                         dismiss()
                     }
                     .buttonStyle(.bordered)
+                    .accessibilityIdentifier(AccessibilityID.signOutButton)
                 } else {
                     Button("Sign in") {
                         session.signIn()
                         dismiss()
                     }
                     .buttonStyle(.borderedProminent)
+                    .accessibilityIdentifier(AccessibilityID.signInButton)
                 }
             }
+            .accessibilityIdentifier(AccessibilityID.accountSheet)
             .navigationTitle(session.accountLabel)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Close") { dismiss() }
+                        .accessibilityIdentifier(AccessibilityID.accountSheetClose)
                 }
             }
         }

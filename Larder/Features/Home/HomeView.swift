@@ -25,6 +25,7 @@ struct HomeView: View {
                             }
                         }
                         .pickerStyle(.segmented)
+                        .accessibilityIdentifier(AccessibilityID.homeSegmentPicker)
                         // Switches in place, nothing is pushed.
                         Text("\(segment.title) placeholder")
                             .foregroundStyle(.secondary)
@@ -53,6 +54,7 @@ struct HomeView: View {
                 // into the hero header in C1 (D-027).
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(session.accountLabel) { isShowingAccount = true }
+                        .accessibilityIdentifier(AccessibilityID.accountButton)
                 }
             }
             .sheet(isPresented: $isShowingAccount) {
@@ -71,6 +73,7 @@ struct HomeView: View {
                 .padding(.vertical)
                 .contentShape(.rect)
         }
+        .accessibilityIdentifier(AccessibilityID.homeRoute(route))
     }
 
     private func placeholder(_ title: String) -> some View {
