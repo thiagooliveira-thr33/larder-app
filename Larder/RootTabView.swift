@@ -1,32 +1,27 @@
 import SwiftUI
 
-struct ContentView: View {
+struct RootTabView: View {
     var body: some View {
         TabView {
             Tab("Home", systemImage: "house") {
-                Text("Home")
-                    .font(.largeTitle)
+                StubScreen(title: "Home", systemImage: "house")
             }
             Tab("Search", systemImage: "magnifyingglass") {
-                Text("Search")
-                    .font(.largeTitle)
+                StubScreen(title: "Search", systemImage: "magnifyingglass")
             }
             Tab(BrandCopy.accountTab, systemImage: "person.crop.circle") {
-                Text(BrandCopy.accountTab)
-                    .font(.largeTitle)
+                StubScreen(title: BrandCopy.accountTab, systemImage: "person.crop.circle")
             }
             Tab("Favourites", systemImage: "heart") {
-                Text("Favourites")
-                    .font(.largeTitle)
+                StubScreen(title: "Favourites", systemImage: "heart")
             }
             Tab("Trolley", systemImage: "cart") {
-                Text("Trolley")
-                    .font(.largeTitle)
+                StubScreen(title: "Trolley", systemImage: "cart")
             }
         }
     }
 }
 
 #Preview {
-    ContentView()
+    RootTabView()
 }
