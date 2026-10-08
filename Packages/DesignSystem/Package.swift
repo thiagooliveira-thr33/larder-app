@@ -12,7 +12,14 @@ let package = Package(
         .library(name: "DesignSystem", targets: ["DesignSystem"]),
     ],
     targets: [
-        .target(name: "DesignSystem"),
+        .target(
+            name: "DesignSystem",
+            resources: [.process("Resources")]
+        ),
+        .testTarget(
+            name: "DesignSystemTests",
+            dependencies: ["DesignSystem"]
+        ),
     ],
     swiftLanguageModes: [.v5] // D-014
 )
