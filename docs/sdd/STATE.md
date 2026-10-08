@@ -59,7 +59,25 @@ Branch `spec-001-home`, created from `main` at `3438d2c`.
 
 ## Plan for the current work package
 
-Written by the next `/sdd` run before coding.
+WP-1 · Navigation skeleton (Lane 1, system styling only, no tokens). Written 2026-10-08 before coding.
+
+| Step | Files | Concept | Tests and evidence |
+|---|---|---|---|
+| A2 | `Larder/Brand/BrandCopy.swift`; `ContentView.swift` uses it for the My Larder tab | Caseless enums as namespaces | L1, L2, L4 |
+| A3 | Rename `ContentView` to `Larder/RootTabView.swift`; `Larder/Support/StubScreen.swift` wrapping the native `ContentUnavailableView`; every tab uses it | View composition and reuse | L1, L2, L4 |
+| A4 | `Larder/Features/Home/HomeView.swift`: `NavigationStack` with a title and a scrollable placeholder | `NavigationStack` | L1, L2, L4 |
+| A5 | `Larder/Navigation/HomeRoute.swift`; six `NavigationLink(value:)` rows and one `navigationDestination(for:)` | Value-based navigation (D-006) | L1, L2 (route titles test), L4 |
+| A6 | `Larder/Features/Account/AccountSheet.swift`; toolbar account button opens it with `.medium` and `.large` detents | Sheets and `presentationDetents` (D-005) | L1, L2, L4 |
+| A7 | `Larder/State/SessionStore.swift` (`@Observable`), created with `@State` in `LarderApp`, injected with `.environment`; button label reads Sign in or My Larder | `@Observable`, `@State`, environment (D-020) | L1, L2 (`SessionStoreTests`), L4 |
+| A8 | `Larder/Features/Home/HomeSegment.swift`; segmented `Picker` switching two placeholders in place | `Picker`, bindings, enums (D-004 stays open) | L1, L2, L4 |
+| A9 | `Larder/Support/AccessibilityID.swift`; identifiers on tabs, quick actions, account button, sheet, picker | Accessibility identifiers | L1, L2 (identifiers unique and kebab-case), L4 |
+| A10 | `Packages/DesignSystem/Package.swift` (iOS 26, Swift 5 mode per D-014), one placeholder source, builds alone with `xcodebuild`. Not linked to any target (that is the XCODE ACTION) | Local Swift packages | L1 on the package, L2 for the app |
+
+- Acceptance items touched (not ticked): tab bar native (section 1 #8), Groceries / Inspiration switches in place, Scan & Go and quick actions push (D-006), Sign in sheet (D-005).
+- L3 (UI tests) cannot run in WP-1: the LarderUITests target is created in the XCODE ACTION. Navigation is covered by B2 in WP-2.
+- L4 limits: Claude Code cannot tap the simulator, so screenshots show the launch state only (Home, light, dark, AX5). Pushes, the sheet and the picker are checked by the device test CP-1 and later by B2.
+- Risks: the account button sits in the Home toolbar until C1 builds the hero (decision below). `PackageDescription` `.v26` needs a recent tools version, confirmed by building.
+- Decisions planned: D-026 `StubScreen` wraps `ContentUnavailableView`; D-027 account button in the Home toolbar, the sheet offers Sign in or Sign out; D-028 DesignSystem package tools version and Swift 5 mode.
 
 ## Device-test debt
 
