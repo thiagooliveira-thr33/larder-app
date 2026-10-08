@@ -1,9 +1,12 @@
 import SwiftUI
 
 @main struct LarderApp: App {
+    @State private var session = SessionStore()
+
     var body: some Scene {
         WindowGroup {
             RootTabView()
+                .environment(session)
         }
     }
 }

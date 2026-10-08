@@ -3,6 +3,7 @@ import SwiftUI
 /// Home tab. Lane 1 placeholder in SPEC-001 section 2 order, replaced by
 /// DesignSystem components in Lane 2.
 struct HomeView: View {
+    @Environment(SessionStore.self) private var session
     @State private var isShowingAccount = false
 
     var body: some View {
@@ -39,7 +40,7 @@ struct HomeView: View {
                 // Toolbar items get system glass on iOS 26. The button moves
                 // into the hero header in C1 (D-027).
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Sign in") { isShowingAccount = true }
+                    Button(session.accountLabel) { isShowingAccount = true }
                 }
             }
             .sheet(isPresented: $isShowingAccount) {
@@ -69,16 +70,19 @@ struct HomeView: View {
     }
 }
 
-#Preview("Light") {
+#Preview("Signed out, light") {
     HomeView()
+        .environment(SessionStore())
 }
 
-#Preview("Dark") {
+#Preview("Signed in, dark") {
     HomeView()
+        .environment(SessionStore(isSignedIn: true))
         .preferredColorScheme(.dark)
 }
 
-#Preview("AX5") {
+#Preview("Signed out, AX5") {
     HomeView()
+        .environment(SessionStore())
         .dynamicTypeSize(.accessibility5)
 }
