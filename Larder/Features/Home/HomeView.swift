@@ -5,6 +5,7 @@ import SwiftUI
 struct HomeView: View {
     @Environment(SessionStore.self) private var session
     @State private var isShowingAccount = false
+    @State private var segment = HomeSegment.groceries
 
     var body: some View {
         NavigationStack {
@@ -17,7 +18,18 @@ struct HomeView: View {
                             routeLink(route)
                         }
                     }
-                    placeholder("Groceries / Inspiration")
+                    GroupBox {
+                        Picker("Groceries or Inspiration", selection: $segment) {
+                            ForEach(HomeSegment.allCases, id: \.self) { segment in
+                                Text(segment.title).tag(segment)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                        // Switches in place, nothing is pushed.
+                        Text("\(segment.title) placeholder")
+                            .foregroundStyle(.secondary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
                     placeholder("Seasonal promotion")
                     GroupBox(BrandCopy.scanAndGo) {
                         routeLink(.scanAndGo)
