@@ -19,7 +19,7 @@ Native iOS app and design system, built as a learning case study: a grocery app 
 - SwiftUI only. UIKit only where SwiftUI has no equivalent, with a comment saying why.
 - State: `@Observable`, `@State`, `@Bindable`. Navigation: `NavigationStack` and the native `TabView`.
 - Avoid older patterns: `NavigationView`, `foregroundColor` (use `foregroundStyle`), `ObservableObject` and `@StateObject` for new code, single-parameter `onChange`. If you are not sure a pattern is current, check the docs.
-- Persistence: SwiftData. Catalog: mock JSON bundled in the app. No networking, no backend, no auth, no payments, no analytics.
+- Data (D-020): no persistence layer. Sample content is plain Swift values; state lives in memory with `@Observable` and `@State`. No SwiftData, no JSON catalog, no networking, no backend, no auth, no payments, no analytics.
 
 ## Liquid Glass rules
 
@@ -42,10 +42,18 @@ Native iOS app and design system, built as a learning case study: a grocery app 
 ## Workflow: spec-driven
 
 - Specs and decisions live in Notion, in the page "LARDER - Case Study" (Roadmap, SPEC pages, Design System Spec, Decision Log). Read the relevant spec and its acceptance criteria before implementing. If you cannot reach Notion, ask me to paste the spec. Do not invent requirements.
-- Do not contradict an accepted decision without asking. Accepted so far: D-001 (native `TabView` by default), D-007 (slice: Home, Product list, Add to trolley, Trolley), D-010 (codename and placeholder brand).
+- Do not contradict an accepted decision without asking. Accepted so far: D-001 (native `TabView` by default), D-005 (Sign in is a sheet), D-006 (quick actions and Scan Pay Go push), D-007 (slice: Home, Product list, Add to trolley, Trolley), D-010 (codename and placeholder brand), D-020 (no persistence, in-memory state), D-021 (two-lane build), D-022 (brand strings only through `BrandCopy`: My Larder, Scan & Go), D-023 (spec-driven build through `/sdd`), D-024 (Search is a plain `Tab`), D-025 (`Color.screenBackground` and `Color.separatorLine` names).
+- SPEC-001 was fully revised on 2026-10-07, so its current text applies. Also read the Notion page "Xcode Build Plan · SPEC-001 Home": https://app.notion.com/p/3f2c5fc600098138b498d6dd7ad4544c
 - Design source: Figma file key `YUrmH4fNFQP5QAR2FM3nLw`. If Figma tools are available, read variables and components from there. Otherwise ask me for values or screenshots.
 - Branch per spec, for example `spec-001-home`. Commit messages start with the spec ID, for example `SPEC-001: add quick action row`. One logical change per commit.
 - A spec is done when its acceptance checklist is ticked on a physical device.
+
+## SDD workflow
+
+- Work runs through `/sdd` (D-023). The loop and its rails live in `.claude/commands/sdd.md` and the Notion page "SDD Playbook"; run state lives in `docs/sdd/STATE.md`.
+- Decide with the Playbook's decision rubric instead of asking, and record the decision. Ask only at a hard stop.
+- Commit locally. Never push.
+- End every run with a YOUR TURN block.
 
 ## Out of scope
 
@@ -64,5 +72,4 @@ Larder/                     repo root
   Larder/                   app target sources: entry point, tabs, screens
   Packages/DesignSystem/    Swift package: Tokens/, Components/ (created in M1)
   Gallery/                  gallery target (created in M1)
-  Resources/Catalog/        mock catalog JSON (created in M3)
 ```

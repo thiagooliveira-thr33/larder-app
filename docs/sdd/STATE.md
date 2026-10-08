@@ -1,0 +1,117 @@
+# SDD state
+
+Memory between `/sdd` runs. Derived from Notion and git, and never overrides them (Playbook section 2, rank 6).
+
+Last updated: 2026-10-08, end of the WP-1 run
+
+## Links
+
+- Case Study: https://app.notion.com/p/3edc5fc6000981559d98e01261ef94e9
+- SDD Playbook: https://app.notion.com/p/3f2c5fc600098199b61fe684fd687725
+- SPEC-001 Home: https://app.notion.com/p/3edc5fc6000981eeadade60fd3641a00
+- Decision Log: https://app.notion.com/p/3edc5fc6000981aaa71deb024eba189b
+- Build Plan: https://app.notion.com/p/3f2c5fc600098138b498d6dd7ad4544c
+- Design System Spec: https://app.notion.com/p/3edc5fc60009818a9d0acc2dd08fb98a
+- Roadmap: https://app.notion.com/p/3edc5fc60009819e9863d55a95980227
+- Learning Log: https://app.notion.com/p/3edc5fc6000981e1b891fee00f1015dd
+- Figma file key: `YUrmH4fNFQP5QAR2FM3nLw`
+- GitHub: `thiagooliveira-thr33/larder-app`
+
+## Environment
+
+- Xcode 27.0 (27A266a). Only the iOS 27.0 simulator runtime is installed. Simulator used so far: iPhone 18 Pro, `E80BC573-921D-4BA6-B82C-7AB72BE3E245`.
+- Deployment target stays iOS 26.0 (D-011). No iOS 26 runtime, so nothing has run on 26.0 yet.
+- Schemes: `Larder` (shared, `Larder.xcodeproj/xcshareddata/xcschemes/Larder.xcscheme`). Targets: `Larder`, `LarderTests`.
+- Tests: only `LarderTests/example()`, an empty Swift Testing placeholder.
+- Build and test (works):
+
+  ```
+  xcodebuild test -project Larder.xcodeproj -scheme Larder \
+    -destination 'platform=iOS Simulator,id=E80BC573-921D-4BA6-B82C-7AB72BE3E245'
+  ```
+
+- Screenshot after a build (works):
+
+  ```
+  xcrun simctl boot E80BC573-921D-4BA6-B82C-7AB72BE3E245
+  xcrun simctl install E80BC573-921D-4BA6-B82C-7AB72BE3E245 <DerivedData>/Build/Products/Debug-iphonesimulator/Larder.app
+  xcrun simctl launch E80BC573-921D-4BA6-B82C-7AB72BE3E245 com.thiagooliveira.larder
+  xcrun simctl io E80BC573-921D-4BA6-B82C-7AB72BE3E245 screenshot .evidence/<step>/<name>.png
+  xcrun simctl ui E80BC573-921D-4BA6-B82C-7AB72BE3E245 appearance dark
+  ```
+
+## Branch and commits
+
+Branch `spec-001-home`, created from `main` at `3438d2c`.
+
+| Commit | Step |
+|---|---|
+| `96e5e6a` | WP-0: align CLAUDE.md with D-020 and D-021 |
+| `275cee1` | A1: five-tab shell |
+| `fec3de4` | SDD framework (D-021, D-023) |
+| `1878e3f` | WP-1 plan |
+| `09eabde` | A2: BrandCopy |
+| `05b2764` | A3: RootTabView and StubScreen |
+| `f86ff3a` | A4: Home in a NavigationStack |
+| `16b43c7` | A5: HomeRoute and six pushes |
+| `94b847b` | A6: Sign in sheet with detents |
+| `efeb8c2` | A7: SessionStore |
+| `2518423` | A8: segmented Picker |
+| `b4ce60e` | A9: AccessibilityID |
+| `c82a504` | A10: DesignSystem package scaffold |
+
+## Work package status
+
+| WP | Status |
+|---|---|
+| WP-0 | Done (96e5e6a) |
+| WP-1 | Built 2026-10-08 (A1 to A10). Waiting for push, XCODE ACTION and device test CP-1 |
+| WP-2 to WP-8 | To do |
+
+## Plan for the current work package
+
+WP-1 · Navigation skeleton (Lane 1, system styling only, no tokens). Written 2026-10-08 before coding.
+
+| Step | Files | Concept | Tests and evidence |
+|---|---|---|---|
+| A2 | `Larder/Brand/BrandCopy.swift`; `ContentView.swift` uses it for the My Larder tab | Caseless enums as namespaces | L1, L2, L4 |
+| A3 | Rename `ContentView` to `Larder/RootTabView.swift`; `Larder/Support/StubScreen.swift` wrapping the native `ContentUnavailableView`; every tab uses it | View composition and reuse | L1, L2, L4 |
+| A4 | `Larder/Features/Home/HomeView.swift`: `NavigationStack` with a title and a scrollable placeholder | `NavigationStack` | L1, L2, L4 |
+| A5 | `Larder/Navigation/HomeRoute.swift`; six `NavigationLink(value:)` rows and one `navigationDestination(for:)` | Value-based navigation (D-006) | L1, L2 (route titles test), L4 |
+| A6 | `Larder/Features/Account/AccountSheet.swift`; toolbar account button opens it with `.medium` and `.large` detents | Sheets and `presentationDetents` (D-005) | L1, L2, L4 |
+| A7 | `Larder/State/SessionStore.swift` (`@Observable`), created with `@State` in `LarderApp`, injected with `.environment`; button label reads Sign in or My Larder | `@Observable`, `@State`, environment (D-020) | L1, L2 (`SessionStoreTests`), L4 |
+| A8 | `Larder/Features/Home/HomeSegment.swift`; segmented `Picker` switching two placeholders in place | `Picker`, bindings, enums (D-004 stays open) | L1, L2, L4 |
+| A9 | `Larder/Support/AccessibilityID.swift`; identifiers on tabs, quick actions, account button, sheet, picker | Accessibility identifiers | L1, L2 (identifiers unique and kebab-case), L4 |
+| A10 | `Packages/DesignSystem/Package.swift` (iOS 26, Swift 5 mode per D-014), one placeholder source, builds alone with `xcodebuild`. Not linked to any target (that is the XCODE ACTION) | Local Swift packages | L1 on the package, L2 for the app |
+
+- Acceptance items touched (not ticked): tab bar native (section 1 #8), Groceries / Inspiration switches in place, Scan & Go and quick actions push (D-006), Sign in sheet (D-005).
+- L3 (UI tests) cannot run in WP-1: the LarderUITests target is created in the XCODE ACTION. Navigation is covered by B2 in WP-2.
+- L4 limits: Claude Code cannot tap the simulator, so screenshots show the launch state only (Home, light, dark, AX5). Pushes, the sheet and the picker are checked by the device test CP-1 and later by B2.
+- Risks: the account button sits in the Home toolbar until C1 builds the hero (decision below). `PackageDescription` `.v26` needs a recent tools version, confirmed by building.
+- Decisions planned: D-026 `StubScreen` wraps `ContentUnavailableView`; D-027 account button in the Home toolbar, the sheet offers Sign in or Sign out; D-028 DesignSystem package tools version and Swift 5 mode.
+
+## Device-test debt
+
+- WP-1: A1 to A10 not yet verified on a device (CP-1). Pushes, the sheet and the picker have no simulator evidence either, because UI tests need the LarderUITests target (B2).
+
+## Push debt
+
+- Everything. Nothing on `spec-001-home` has been pushed. Due now: end of WP-1.
+
+## Decisions made by Claude Code
+
+- D-026 (Accepted): `StubScreen` wraps the native `ContentUnavailableView`.
+- D-027 (Accepted): account button in the Home toolbar until C1; the sheet offers Sign in or Sign out.
+- D-028 (Accepted): DesignSystem package uses tools 6.2, iOS 26, Swift 5 mode.
+- Next free Decision Log ID: D-029.
+- Note: the Decision Log has two rows with ID D-019 (offers badge, and Home layout details). Left as is, since accepted decisions are not rewritten. Flagged for the user.
+
+## Notion write-back queue
+
+- Empty. Notion was written directly on 2026-10-08: Build Plan status cells (WP-1, A2 to A10), Decision Log D-026 to D-028, Learning Log session row and concept lines.
+
+## Evidence paths
+
+- `.evidence/<step>/` (git-ignored): simulator screenshots per step, light, dark and the largest accessibility size.
+- WP-1: `.evidence/A2/` to `.evidence/A9/` (`light.png`, `dark.png`, `ax5.png`, launch state only). A10 changed no UI.
+- Follow-ups noted in WP-1: the toolbar account button does not scale at AX5 (system bar behaviour, review in G2); quick-action rows use system padding for the 44 pt target until C3.
