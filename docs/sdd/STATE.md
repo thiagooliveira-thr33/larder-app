@@ -2,7 +2,7 @@
 
 Memory between `/sdd` runs. Derived from Notion and git, and never overrides them (Playbook section 2, rank 6).
 
-Last updated: 2026-10-08, end of the WP-1 run
+Last updated: 2026-10-08, WP-2 run stopped at B1 (XCODE ACTION needs a fix)
 
 ## Links
 
@@ -65,8 +65,9 @@ Branch `spec-001-home`, created from `main` at `3438d2c`.
 | WP | Status |
 |---|---|
 | WP-0 | Done (96e5e6a) |
-| WP-1 | Built 2026-10-08 (A1 to A10). Waiting for push, XCODE ACTION and device test CP-1 |
-| WP-2 to WP-8 | To do |
+| WP-1 | Built 2026-10-08 (A1 to A10). Pushed, draft PR #12. Waiting for device test CP-1 |
+| WP-2 | Blocked at B1: the Xcode wiring needs a fix by the user (see Push debt and XCODE ACTION below) |
+| WP-3 to WP-8 | To do |
 
 ## Plan for the current work package
 
@@ -96,7 +97,16 @@ WP-1 · Navigation skeleton (Lane 1, system styling only, no tokens). Written 20
 
 ## Push debt
 
-- Everything. Nothing on `spec-001-home` has been pushed. Due now: end of WP-1.
+- None. `748c22e` pushed to `origin/spec-001-home` (checked 2026-10-08 with `git rev-parse`). Draft PR #12 "SPEC-001: Home" is open.
+
+## XCODE ACTION status (B1 blocked)
+
+Checked 2026-10-08. The project file and new target folders are uncommitted on purpose, waiting for the fix below. Found:
+- Stray targets with no source folders on disk: `LarderUITests` (an App target, not a test bundle), `LarderUITestsTests`, `LarderUITestsUITests`. Removing targets is a hard stop, so the user removes them.
+- The real UI test bundle is named `LarderUITests 2` (folder `LarderUITests 2/`, bundle ID `thr33.LarderUITests-2`) because the stray app took the name. It needs to be `LarderUITests`.
+- `Gallery` was created with testing on, so `GalleryTests` and `GalleryUITests` exist. The recipe says testing None.
+- `DesignSystem` is linked to Larder but not to Gallery.
+- New targets have iOS 27.0, iPhone and iPad, landscape, bundle IDs `thr33.*`. Claude Code aligns these with D-011 to D-014 in B1 after the fix (allowed exception).
 
 ## Decisions made by Claude Code
 
