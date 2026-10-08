@@ -11,8 +11,8 @@ struct ContentView: View {
                 Text("Search")
                     .font(.largeTitle)
             }
-            Tab("My Larder", systemImage: "person.crop.circle") {
-                Text("My Larder")
+            Tab(BrandCopy.accountTab, systemImage: "person.crop.circle") {
+                Text(BrandCopy.accountTab)
                     .font(.largeTitle)
             }
             Tab("Favourites", systemImage: "heart") {
