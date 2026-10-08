@@ -3,6 +3,8 @@ import SwiftUI
 /// Home tab. Lane 1 placeholder in SPEC-001 section 2 order, replaced by
 /// DesignSystem components in Lane 2.
 struct HomeView: View {
+    @State private var isShowingAccount = false
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -32,6 +34,17 @@ struct HomeView: View {
             .navigationDestination(for: HomeRoute.self) { route in
                 StubScreen(title: route.title, systemImage: route.systemImage)
                     .navigationTitle(route.title)
+            }
+            .toolbar {
+                // Toolbar items get system glass on iOS 26. The button moves
+                // into the hero header in C1 (D-027).
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Sign in") { isShowingAccount = true }
+                }
+            }
+            .sheet(isPresented: $isShowingAccount) {
+                AccountSheet()
+                    .presentationDetents([.medium, .large])
             }
         }
     }
