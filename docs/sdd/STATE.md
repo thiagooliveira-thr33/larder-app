@@ -2,7 +2,7 @@
 
 Memory between `/sdd` runs. Derived from Notion and git, and never overrides them (Playbook section 2, rank 6).
 
-Last updated: 2026-10-08, WP-2 run stopped at B1 (XCODE ACTION needs a fix)
+Last updated: 2026-10-08, WP-2 run: B3, B4, B5, B7 done; B1, B2, B6 wait for the Xcode fix
 
 ## Links
 
@@ -59,6 +59,12 @@ Branch `spec-001-home`, created from `main` at `3438d2c`.
 | `2518423` | A8: segmented Picker |
 | `b4ce60e` | A9: AccessibilityID |
 | `c82a504` | A10: DesignSystem package scaffold |
+| `349bcd6` | STATE: push recorded, wiring blocked |
+| `42cfdec` | WP-2 plan |
+| `4d8fb18` | B3: color tokens, package test target |
+| `b334230` | B4: Spacing, Radius, Size |
+| `661aec9` | B5: Lora Bold brand headlines |
+| `5718993` | B7: contrast test |
 
 ## Work package status
 
@@ -66,7 +72,7 @@ Branch `spec-001-home`, created from `main` at `3438d2c`.
 |---|---|
 | WP-0 | Done (96e5e6a) |
 | WP-1 | Built 2026-10-08 (A1 to A10). Pushed, draft PR #12. Waiting for device test CP-1 |
-| WP-2 | Blocked at B1: the Xcode wiring needs a fix by the user (see Push debt and XCODE ACTION below) |
+| WP-2 | In progress. B3, B4, B5, B7 done. B1, B2, B6 wait for the XCODE ACTION fix (see below) |
 | WP-3 to WP-8 | To do |
 
 ## Plan for the current work package
@@ -77,7 +83,7 @@ The Xcode fix from the last run is not saved yet (`project.pbxproj` unchanged si
 
 | Step | Files | Concept | Tests and evidence |
 |---|---|---|---|
-| B3 | `Packages/DesignSystem/Sources/DesignSystem/Resources/Colors.xcassets` (14 colorsets, light and dark), `Tokens/Colors.swift` (`Color` extensions through `Bundle.module`, Figma-to-Swift renames in the header), `Package.swift` resources | Asset-catalog colors and `Bundle.module` | L1 package build |
+| B3 | `Packages/DesignSystem/Sources/DesignSystem/Resources/Colors.xcassets` (15 colorsets, light and dark), `Tokens/Colors.swift` (`Color` extensions through `Bundle.module`, Figma-to-Swift renames in the header), `Package.swift` resources | Asset-catalog colors and `Bundle.module` | L1 package build |
 | B4 | `Tokens/Spacing.swift`, `Tokens/Radius.swift`, `Tokens/Size.swift` | Design tokens as constants | L1, L2 values match Figma |
 | B5 | `Resources/Fonts/Lora-Bold.ttf` and `OFL.txt`, `Tokens/Typography.swift` (runtime registration with CoreText, `Font.brandHeadline28/25` through `Font.custom(_:size:relativeTo:)`) | Dynamic Type with a custom font | L1, L2 font registers and the PostScript name matches |
 | B7 | `Tests/DesignSystemTests/ContrastTests.swift`, a package test target | Contrast ratio | L2 on the simulator, failures reported, Figma values untouched |
@@ -95,7 +101,8 @@ The Xcode fix from the last run is not saved yet (`project.pbxproj` unchanged si
 
 ## Push debt
 
-- None. `748c22e` pushed to `origin/spec-001-home` (checked 2026-10-08 with `git rev-parse`). Draft PR #12 "SPEC-001: Home" is open.
+- 7 local commits since `748c22e` (349bcd6 to 5718993). Due at the end of WP-2, after B1, B2 and B6.
+- Earlier: none. `748c22e` pushed to `origin/spec-001-home` (checked 2026-10-08 with `git rev-parse`). Draft PR #12 "SPEC-001: Home" is open.
 
 ## XCODE ACTION status (B1 blocked)
 
@@ -111,7 +118,11 @@ Checked 2026-10-08. The project file and new target folders are uncommitted on p
 - D-026 (Accepted): `StubScreen` wraps the native `ContentUnavailableView`.
 - D-027 (Accepted): account button in the Home toolbar until C1; the sheet offers Sign in or Sign out.
 - D-028 (Accepted): DesignSystem package uses tools 6.2, iOS 26, Swift 5 mode.
-- Next free Decision Log ID: D-031 (D-029 and D-030 were added by the user in Notion, so the old line saying D-029 was stale).
+- D-031 (Accepted): color tokens look up the catalog by name; Xcode's generated ColorResource symbols trim names (labelOnImage becomes labelOn).
+- D-032 (Accepted): `DesignSystemTests` package test target in `Package.swift`.
+- D-033 (Accepted): Lora Bold from cyrealtype/Lora-Cyrillic, OFL 1.1, registered at runtime with CoreText.
+- D-034 (Accepted): 16 contrast pairs, scrim measured over white. All pass.
+- Next free Decision Log ID: D-035 (D-029 and D-030 were added by the user in Notion, so an earlier line saying D-029 was stale).
 - Note: the Decision Log has two rows with ID D-019 (offers badge, and Home layout details). Left as is, since accepted decisions are not rewritten. Flagged for the user.
 
 ## Notion write-back queue
@@ -122,4 +133,13 @@ Checked 2026-10-08. The project file and new target folders are uncommitted on p
 
 - `.evidence/<step>/` (git-ignored): simulator screenshots per step, light, dark and the largest accessibility size.
 - WP-1: `.evidence/A2/` to `.evidence/A9/` (`light.png`, `dark.png`, `ax5.png`, launch state only). A10 changed no UI.
+- WP-2: no UI changed in B3 to B7, so no screenshots. Evidence is the package test run (21 test cases: 15 tokens, 3 layout, 1 font, 32 contrast cases in one parameterised test).
+- Package build and test (works):
+
+  ```
+  cd Packages/DesignSystem && xcodebuild test -scheme DesignSystem \
+    -destination 'platform=iOS Simulator,id=E80BC573-921D-4BA6-B82C-7AB72BE3E245'
+  ```
+
+- Follow-ups noted in WP-2: the app's `AccentColor` should match `brandAccent` (Design System Spec map), do it in B1 for Larder and Gallery. Thin contrast margins listed in D-034. `Font.brandHeadline28` scaling at AX5 is checked in B6 and on the device at CP-2.
 - Follow-ups noted in WP-1: the toolbar account button does not scale at AX5 (system bar behaviour, review in G2); quick-action rows use system padding for the 44 pt target until C3.
