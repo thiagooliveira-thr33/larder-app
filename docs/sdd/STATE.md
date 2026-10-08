@@ -71,25 +71,23 @@ Branch `spec-001-home`, created from `main` at `3438d2c`.
 
 ## Plan for the current work package
 
-WP-1 · Navigation skeleton (Lane 1, system styling only, no tokens). Written 2026-10-08 before coding.
+WP-2 · Wiring, UI tests, tokens, gallery (Lane 2). Written 2026-10-08 before coding. The WP-1 plan is in git history (`748c22e`).
+
+The Xcode fix from the last run is not saved yet (`project.pbxproj` unchanged since 12:28, Xcode open). Following the Playbook (Claude Code picks the step order inside a WP), the package-only steps run first and B1, B2 and B6 wait for the fix. Commits use pathspecs so the user's uncommitted wiring stays out of them.
 
 | Step | Files | Concept | Tests and evidence |
 |---|---|---|---|
-| A2 | `Larder/Brand/BrandCopy.swift`; `ContentView.swift` uses it for the My Larder tab | Caseless enums as namespaces | L1, L2, L4 |
-| A3 | Rename `ContentView` to `Larder/RootTabView.swift`; `Larder/Support/StubScreen.swift` wrapping the native `ContentUnavailableView`; every tab uses it | View composition and reuse | L1, L2, L4 |
-| A4 | `Larder/Features/Home/HomeView.swift`: `NavigationStack` with a title and a scrollable placeholder | `NavigationStack` | L1, L2, L4 |
-| A5 | `Larder/Navigation/HomeRoute.swift`; six `NavigationLink(value:)` rows and one `navigationDestination(for:)` | Value-based navigation (D-006) | L1, L2 (route titles test), L4 |
-| A6 | `Larder/Features/Account/AccountSheet.swift`; toolbar account button opens it with `.medium` and `.large` detents | Sheets and `presentationDetents` (D-005) | L1, L2, L4 |
-| A7 | `Larder/State/SessionStore.swift` (`@Observable`), created with `@State` in `LarderApp`, injected with `.environment`; button label reads Sign in or My Larder | `@Observable`, `@State`, environment (D-020) | L1, L2 (`SessionStoreTests`), L4 |
-| A8 | `Larder/Features/Home/HomeSegment.swift`; segmented `Picker` switching two placeholders in place | `Picker`, bindings, enums (D-004 stays open) | L1, L2, L4 |
-| A9 | `Larder/Support/AccessibilityID.swift`; identifiers on tabs, quick actions, account button, sheet, picker | Accessibility identifiers | L1, L2 (identifiers unique and kebab-case), L4 |
-| A10 | `Packages/DesignSystem/Package.swift` (iOS 26, Swift 5 mode per D-014), one placeholder source, builds alone with `xcodebuild`. Not linked to any target (that is the XCODE ACTION) | Local Swift packages | L1 on the package, L2 for the app |
+| B3 | `Packages/DesignSystem/Sources/DesignSystem/Resources/Colors.xcassets` (14 colorsets, light and dark), `Tokens/Colors.swift` (`Color` extensions through `Bundle.module`, Figma-to-Swift renames in the header), `Package.swift` resources | Asset-catalog colors and `Bundle.module` | L1 package build |
+| B4 | `Tokens/Spacing.swift`, `Tokens/Radius.swift`, `Tokens/Size.swift` | Design tokens as constants | L1, L2 values match Figma |
+| B5 | `Resources/Fonts/Lora-Bold.ttf` and `OFL.txt`, `Tokens/Typography.swift` (runtime registration with CoreText, `Font.brandHeadline28/25` through `Font.custom(_:size:relativeTo:)`) | Dynamic Type with a custom font | L1, L2 font registers and the PostScript name matches |
+| B7 | `Tests/DesignSystemTests/ContrastTests.swift`, a package test target | Contrast ratio | L2 on the simulator, failures reported, Figma values untouched |
+| B1 | Commit the fixed wiring, align Gallery and LarderUITests with D-011 to D-014 | Per-target build settings | L1 all schemes. Blocked on the XCODE ACTION |
+| B2 | `LarderUITests/NavigationSmokeTests.swift` | XCUITest | L3. Blocked on B1 |
+| B6 | Gallery token pages | The gallery as a test bed | L1, L4. Blocked on B1 |
 
-- Acceptance items touched (not ticked): tab bar native (section 1 #8), Groceries / Inspiration switches in place, Scan & Go and quick actions push (D-006), Sign in sheet (D-005).
-- L3 (UI tests) cannot run in WP-1: the LarderUITests target is created in the XCODE ACTION. Navigation is covered by B2 in WP-2.
-- L4 limits: Claude Code cannot tap the simulator, so screenshots show the launch state only (Home, light, dark, AX5). Pushes, the sheet and the picker are checked by the device test CP-1 and later by B2.
-- Risks: the account button sits in the Home toolbar until C1 builds the hero (decision below). `PackageDescription` `.v26` needs a recent tools version, confirmed by building.
-- Decisions planned: D-026 `StubScreen` wraps `ContentUnavailableView`; D-027 account button in the Home toolbar, the sheet offers Sign in or Sign out; D-028 DesignSystem package tools version and Swift 5 mode.
+- Sources: Design System Spec color table and Figma to Swift map (D-025, D-030). Figma light values were checked on node 78:333 and match. Dark values come from the spec table.
+- Risks: Lora static Bold has to be downloaded (OFL, open licence, asset not code). If it can't be downloaded, B5 stops there. Package tests need `xcodebuild` on the package scheme with an iOS simulator.
+- Decisions planned: tokens as `Color` static members with `public`; the package test target lives in `Package.swift` (not an Xcode target); the font registers at runtime (no Info.plist change).
 
 ## Device-test debt
 
@@ -113,7 +111,7 @@ Checked 2026-10-08. The project file and new target folders are uncommitted on p
 - D-026 (Accepted): `StubScreen` wraps the native `ContentUnavailableView`.
 - D-027 (Accepted): account button in the Home toolbar until C1; the sheet offers Sign in or Sign out.
 - D-028 (Accepted): DesignSystem package uses tools 6.2, iOS 26, Swift 5 mode.
-- Next free Decision Log ID: D-029.
+- Next free Decision Log ID: D-031 (D-029 and D-030 were added by the user in Notion, so the old line saying D-029 was stale).
 - Note: the Decision Log has two rows with ID D-019 (offers badge, and Home layout details). Left as is, since accepted decisions are not rewritten. Flagged for the user.
 
 ## Notion write-back queue
