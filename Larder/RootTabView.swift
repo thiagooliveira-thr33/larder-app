@@ -4,7 +4,7 @@ struct RootTabView: View {
     var body: some View {
         TabView {
             Tab("Home", systemImage: "house") {
-                StubScreen(title: "Home", systemImage: "house")
+                HomeView()
             }
             Tab("Search", systemImage: "magnifyingglass") {
                 StubScreen(title: "Search", systemImage: "magnifyingglass")
