@@ -42,11 +42,18 @@ Native iOS app and design system, built as a learning case study: a grocery app 
 ## Workflow: spec-driven
 
 - Specs and decisions live in Notion, in the page "LARDER - Case Study" (Roadmap, SPEC pages, Design System Spec, Decision Log). Read the relevant spec and its acceptance criteria before implementing. If you cannot reach Notion, ask me to paste the spec. Do not invent requirements.
-- Do not contradict an accepted decision without asking. Accepted so far: D-001 (native `TabView` by default), D-005 (Sign in is a sheet), D-006 (quick actions and Scan Pay Go push), D-007 (slice: Home, Product list, Add to trolley, Trolley), D-010 (codename and placeholder brand), D-020 (no persistence, in-memory state), D-021 (two-lane build).
-- For SPEC-001, apply the red correction callout at the top of the spec until the full revision lands, and also read the Notion page "Xcode Build Plan · SPEC-001 Home": https://app.notion.com/p/3f2c5fc600098138b498d6dd7ad4544c
+- Do not contradict an accepted decision without asking. Accepted so far: D-001 (native `TabView` by default), D-005 (Sign in is a sheet), D-006 (quick actions and Scan Pay Go push), D-007 (slice: Home, Product list, Add to trolley, Trolley), D-010 (codename and placeholder brand), D-020 (no persistence, in-memory state), D-021 (two-lane build), D-022 (brand strings only through `BrandCopy`: My Larder, Scan & Go), D-023 (spec-driven build through `/sdd`), D-024 (Search is a plain `Tab`), D-025 (`Color.screenBackground` and `Color.separatorLine` names).
+- SPEC-001 was fully revised on 2026-10-07, so its current text applies. Also read the Notion page "Xcode Build Plan · SPEC-001 Home": https://app.notion.com/p/3f2c5fc600098138b498d6dd7ad4544c
 - Design source: Figma file key `YUrmH4fNFQP5QAR2FM3nLw`. If Figma tools are available, read variables and components from there. Otherwise ask me for values or screenshots.
 - Branch per spec, for example `spec-001-home`. Commit messages start with the spec ID, for example `SPEC-001: add quick action row`. One logical change per commit.
 - A spec is done when its acceptance checklist is ticked on a physical device.
+
+## SDD workflow
+
+- Work runs through `/sdd` (D-023). The loop and its rails live in `.claude/commands/sdd.md` and the Notion page "SDD Playbook"; run state lives in `docs/sdd/STATE.md`.
+- Decide with the Playbook's decision rubric instead of asking, and record the decision. Ask only at a hard stop.
+- Commit locally. Never push.
+- End every run with a YOUR TURN block.
 
 ## Out of scope
 
