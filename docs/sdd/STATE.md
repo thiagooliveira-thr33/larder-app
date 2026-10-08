@@ -2,7 +2,7 @@
 
 Memory between `/sdd` runs. Derived from Notion and git, and never overrides them (Playbook section 2, rank 6).
 
-Last updated: 2026-10-08
+Last updated: 2026-10-08, end of the WP-1 run
 
 ## Links
 
@@ -48,13 +48,24 @@ Branch `spec-001-home`, created from `main` at `3438d2c`.
 |---|---|
 | `96e5e6a` | WP-0: align CLAUDE.md with D-020 and D-021 |
 | `275cee1` | A1: five-tab shell |
+| `fec3de4` | SDD framework (D-021, D-023) |
+| `1878e3f` | WP-1 plan |
+| `09eabde` | A2: BrandCopy |
+| `05b2764` | A3: RootTabView and StubScreen |
+| `f86ff3a` | A4: Home in a NavigationStack |
+| `16b43c7` | A5: HomeRoute and six pushes |
+| `94b847b` | A6: Sign in sheet with detents |
+| `efeb8c2` | A7: SessionStore |
+| `2518423` | A8: segmented Picker |
+| `b4ce60e` | A9: AccessibilityID |
+| `c82a504` | A10: DesignSystem package scaffold |
 
 ## Work package status
 
 | WP | Status |
 |---|---|
 | WP-0 | Done (96e5e6a) |
-| WP-1 | In progress: A1 done (275cee1), A2 to A10 to do |
+| WP-1 | Built 2026-10-08 (A1 to A10). Waiting for push, XCODE ACTION and device test CP-1 |
 | WP-2 to WP-8 | To do |
 
 ## Plan for the current work package
@@ -81,21 +92,26 @@ WP-1 · Navigation skeleton (Lane 1, system styling only, no tokens). Written 20
 
 ## Device-test debt
 
-- WP-1: A1 tab switching not yet verified on a device (CP-1).
+- WP-1: A1 to A10 not yet verified on a device (CP-1). Pushes, the sheet and the picker have no simulator evidence either, because UI tests need the LarderUITests target (B2).
 
 ## Push debt
 
-- Everything. Nothing on `spec-001-home` has been pushed.
+- Everything. Nothing on `spec-001-home` has been pushed. Due now: end of WP-1.
 
 ## Decisions made by Claude Code
 
-- None recorded yet through `/sdd`. The next free Decision Log ID is D-026.
+- D-026 (Accepted): `StubScreen` wraps the native `ContentUnavailableView`.
+- D-027 (Accepted): account button in the Home toolbar until C1; the sheet offers Sign in or Sign out.
+- D-028 (Accepted): DesignSystem package uses tools 6.2, iOS 26, Swift 5 mode.
+- Next free Decision Log ID: D-029.
 - Note: the Decision Log has two rows with ID D-019 (offers badge, and Home layout details). Left as is, since accepted decisions are not rewritten. Flagged for the user.
 
 ## Notion write-back queue
 
-- Empty. Pending items go to `docs/sdd/notion-outbox.md`.
+- Empty. Notion was written directly on 2026-10-08: Build Plan status cells (WP-1, A2 to A10), Decision Log D-026 to D-028, Learning Log session row and concept lines.
 
 ## Evidence paths
 
 - `.evidence/<step>/` (git-ignored): simulator screenshots per step, light, dark and the largest accessibility size.
+- WP-1: `.evidence/A2/` to `.evidence/A9/` (`light.png`, `dark.png`, `ax5.png`, launch state only). A10 changed no UI.
+- Follow-ups noted in WP-1: the toolbar account button does not scale at AX5 (system bar behaviour, review in G2); quick-action rows use system padding for the 44 pt target until C3.
